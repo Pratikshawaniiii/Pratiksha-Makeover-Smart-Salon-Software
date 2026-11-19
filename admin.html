@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salon Admin Portal – Pratiksha Makeover Jalgaon</title>
+    <meta name="description" content="Secure Salon Owner Admin Dashboard for managing Pratiksha Makeover appointments, calendar slots, services, customers, offers, payments, and reports." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=JetBrains+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+  </head>
+  <body data-page="admin">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="index.html" class="brand-link" aria-label="Pratiksha Makeover Home">
+          <svg class="brand-logo" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="1" y="1" width="38" height="38" rx="19" fill="#FBF2F4" stroke="#C49A45" stroke-width="1.5"/>
+            <path d="M20 8C23.5 13 28 16.5 28 21.5C28 25.9 24.4 29.5 20 29.5C15.6 29.5 12 25.9 12 21.5C12 16.5 16.5 13 20 8Z" stroke="#9E465C" stroke-width="1.5"/>
+            <path d="M15.5 22.5C16.8 20.3 18.4 19 20 19C21.6 19 23.2 20.3 24.5 22.5" stroke="#C49A45" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="20" cy="15.2" r="1.4" fill="#9E465C"/>
+          </svg>
+          <span class="brand-title">Pratiksha Makeover</span>
+        </a>
+
+        <nav class="main-nav" id="mainNav" aria-label="Primary Navigation">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="services.html" class="nav-link">Services</a>
+          <a href="gallery.html" class="nav-link">Gallery</a>
+          <a href="booking.html" class="nav-link">Book Appointment</a>
+          <a href="admin.html" class="nav-link active">Admin</a>
+        </nav>
+
+        <div class="header-actions">
+          <a href="booking.html" class="btn btn-outline btn-sm">Customer Booking</a>
+          <button type="button" class="mobile-menu-btn" id="mobileMenuBtn" aria-expanded="false" aria-controls="mainNav" aria-label="Toggle Menu">&#9776;</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section-canvas">
+        <div class="container">
+          <!-- Separate Admin Login Gate -->
+          <div id="adminLoginGate" class="admin-login-wrap">
+            <div class="card">
+              <div class="kicker-line">Salon Owner Portal</div>
+              <h1 class="card-title" style="font-size:1.9rem;">Admin Login</h1>
+              <p class="text-muted">Customers book directly without accounts. Sign in here only to manage salon operations, pricing, and revenue.</p>
+
+              <div id="adminLoginAlert" class="hidden"></div>
+
+              <form id="adminLoginForm" class="mt-3">
+                <div class="form-group">
+                  <label class="form-label" for="adminEmail">Administrator Email</label>
+                  <input type="email" id="adminEmail" class="form-control" required placeholder="admin@pratikshamakeover.in" />
+                </div>
+                <div class="form-group mt-2">
+                  <label class="form-label" for="adminPassword">Password</label>
+                  <input type="password" id="adminPassword" class="form-control" required placeholder="Enter admin password" />
+                </div>
+                <div class="flex-row mt-3">
+                  <button type="submit" class="btn btn-primary" style="flex:1;">Sign In to Dashboard</button>
+                  <button type="button" id="fillDemoAdminBtn" class="btn btn-outline btn-sm">Fill Demo Credentials</button>
+                </div>
+              </form>
+
+              <div class="alert alert-info mt-3">
+                Demo Owner Access: <strong class="font-mono">admin@pratikshamakeover.in</strong> / <strong class="font-mono">Admin@123</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Admin Dashboard Workspace -->
+          <div id="adminDashboardView" class="hidden">
+            <div class="section-header">
+              <div>
+                <div class="kicker-line">Smart Salon Management Workspace</div>
+                <h1 class="section-title">Pratiksha Makeover Admin Dashboard</h1>
+                <p class="text-sm text-muted">Signed in as <strong id="adminOperatorLabel">Administrator</strong></p>
+              </div>
+              <div class="flex-row">
+                <a href="Pratiksha-Makeover.zip" download="Pratiksha-Makeover.zip" class="btn btn-outline btn-sm">Download ZIP</a>
+                <button type="button" id="adminLogoutBtn" class="btn btn-danger-outline btn-sm">Sign Out</button>
+              </div>
+            </div>
+
+            <!-- 8 KPIs -->
+            <div id="adminKpiGrid" class="kpi-grid mb-4"></div>
+
+            <!-- Management Tabs -->
+            <div class="filter-bar" id="adminTabBar" role="tablist">
+              <button type="button" class="filter-tab active" data-admin-tab="appointments">Appointments</button>
+              <button type="button" class="filter-tab" data-admin-tab="calendar">Slot Calendar</button>
+              <button type="button" class="filter-tab" data-admin-tab="services">Services &amp; Pricing</button>
+              <button type="button" class="filter-tab" data-admin-tab="customers">Customers &amp; History</button>
+              <button type="button" class="filter-tab" data-admin-tab="offers">Offers &amp; Promos</button>
+              <button type="button" class="filter-tab" data-admin-tab="payments">Payments &amp; Receipts</button>
+              <button type="button" class="filter-tab" data-admin-tab="reports">Daily &amp; Monthly Reports</button>
+            </div>
+
+            <div id="adminTabContent"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Admin Receipt Modal -->
+    <div id="adminReceiptModal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <div class="modal-header no-print">
+          <h3 class="font-display" style="font-size:1.35rem;">Verified Payment Receipt</h3>
+          <button type="button" class="btn btn-outline btn-sm" data-close-modal="adminReceiptModal">Close</button>
+        </div>
+        <div class="modal-body">
+          <div class="receipt-box">
+            <div class="flex-between mb-2">
+              <strong style="font-family:var(--font-serif);font-size:1.3rem;">Pratiksha Makeover</strong>
+              <span id="admRcpNumber" class="font-mono text-xs"></span>
+            </div>
+            <p class="text-xs text-muted mb-3">Pearl Plaza, Ring Road, Navi Peth, Jalgaon, Maharashtra</p>
+            <div class="summary-line"><span>Customer</span><span id="admRcpCustomer"></span></div>
+            <div class="summary-line"><span>Service</span><span id="admRcpService"></span></div>
+            <div class="summary-line"><span>Payment Method</span><span id="admRcpMethod"></span></div>
+            <div class="summary-line"><span>Confirmed At</span><span id="admRcpDate" class="text-xs"></span></div>
+            <div class="summary-total"><span>Total Paid</span><span id="admRcpAmount" class="tabular-nums"></span></div>
+          </div>
+          <div class="flex-row no-print">
+            <button type="button" onclick="window.print()" class="btn btn-dark btn-sm">Print Receipt</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div><strong>Pratiksha Makeover</strong> &middot; Jalgaon Studio Administration</div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="booking.html">Direct Booking</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/firebase.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/admin.js"></script>
+  </body>
+</html>

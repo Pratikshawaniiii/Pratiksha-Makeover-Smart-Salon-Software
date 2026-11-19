@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Direct Appointment Booking – Pratiksha Makeover Jalgaon</title>
+    <meta name="description" content="Book your salon appointment directly at Pratiksha Makeover, Jalgaon without creating an account. Prevent double bookings and manage reservations by Booking ID." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=JetBrains+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+  </head>
+  <body data-page="booking">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="index.html" class="brand-link" aria-label="Pratiksha Makeover Home">
+          <svg class="brand-logo" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="1" y="1" width="38" height="38" rx="19" fill="#FBF2F4" stroke="#C49A45" stroke-width="1.5"/>
+            <path d="M20 8C23.5 13 28 16.5 28 21.5C28 25.9 24.4 29.5 20 29.5C15.6 29.5 12 25.9 12 21.5C12 16.5 16.5 13 20 8Z" stroke="#9E465C" stroke-width="1.5"/>
+            <path d="M15.5 22.5C16.8 20.3 18.4 19 20 19C21.6 19 23.2 20.3 24.5 22.5" stroke="#C49A45" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="20" cy="15.2" r="1.4" fill="#9E465C"/>
+          </svg>
+          <span class="brand-title">Pratiksha Makeover</span>
+        </a>
+
+        <nav class="main-nav" id="mainNav" aria-label="Primary Navigation">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="services.html" class="nav-link">Services</a>
+          <a href="gallery.html" class="nav-link">Gallery</a>
+          <a href="booking.html" class="nav-link active">Book Appointment</a>
+          <a href="admin.html" class="nav-link">Admin</a>
+        </nav>
+
+        <div class="header-actions">
+          <button type="button" class="btn btn-outline btn-sm" data-open-concierge>Smart Concierge</button>
+          <a href="#myBookingsSection" class="btn btn-dark btn-sm">My Bookings</a>
+          <button type="button" class="mobile-menu-btn" id="mobileMenuBtn" aria-expanded="false" aria-controls="mainNav" aria-label="Toggle Menu">&#9776;</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section-canvas">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <div class="kicker-line">Instant Guest Booking &middot; Zero Account Required</div>
+              <h1 class="section-title">Book Your Salon Appointment</h1>
+              <p class="section-desc">
+                Select your service, preferred makeup artist, date, and open time slot. Already booked slots are automatically blocked to prevent double booking.
+              </p>
+            </div>
+          </div>
+
+          <!-- Confirmation Card -->
+          <div id="bookingConfirmationPanel" class="card card-linen hidden mb-4">
+            <div class="meta-line">
+              <span class="status-label status-confirmed">&#10003; Appointment Received</span>
+              <span>&middot;</span>
+              <span>Unique Booking ID: <span id="confBookingCode" class="booking-code-pill">PM-2605</span></span>
+            </div>
+            <h2 class="section-title mt-2">Thank You! Your Slot Is Reserved</h2>
+            <p id="confServiceSummary" class="card-body mt-2"></p>
+            <p class="text-sm mt-2"><strong>Payable Summary:</strong> <span id="confPayable" class="tabular-nums"></span></p>
+            <p id="confPrepNote" class="text-xs text-muted mt-2"></p>
+            <div class="flex-row mt-4">
+              <a id="confWhatsAppBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">Send Confirmation on WhatsApp</a>
+              <button type="button" id="confViewBookingBtn" class="btn btn-dark">Manage / Pay in My Bookings</button>
+              <button type="button" id="bookAnotherBtn" class="btn btn-outline">Book Another Slot</button>
+            </div>
+          </div>
+
+          <!-- Direct Booking Form + Summary -->
+          <div id="bookingFormWrapper" class="split-booking">
+            <div class="card">
+              <div id="bookingFormAlert" class="hidden"></div>
+              <form id="directBookingForm">
+                <h2 class="card-title" style="margin-top:0;">1. Personal Contact Details</h2>
+                <div class="form-grid-3 mt-2">
+                  <div class="form-group">
+                    <label class="form-label" for="customerName">Customer Full Name *</label>
+                    <input type="text" id="customerName" class="form-control" required placeholder="e.g. Snehal Deshmukh" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="customerPhone">Mobile Number *</label>
+                    <input type="tel" id="customerPhone" class="form-control" required placeholder="10-digit mobile" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="customerWhatsapp">WhatsApp Number (Optional)</label>
+                    <input type="tel" id="customerWhatsapp" class="form-control" placeholder="Same as mobile if blank" />
+                  </div>
+                </div>
+
+                <h2 class="card-title mt-4">2. Salon Service, Date &amp; Makeup Artist</h2>
+                <div class="form-grid-2 mt-2">
+                  <div class="form-group">
+                    <label class="form-label" for="bookingService">Select Salon Service *</label>
+                    <select id="bookingService" class="form-control" required></select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="bookingArtist">Select Makeup Artist *</label>
+                    <select id="bookingArtist" class="form-control" required></select>
+                  </div>
+                </div>
+
+                <div class="form-grid-2 mt-3">
+                  <div class="form-group">
+                    <label class="form-label" for="bookingDate">Preferred Appointment Date *</label>
+                    <input type="date" id="bookingDate" class="form-control" required />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="bookingPaymentMethod">Preferred Payment Mode</label>
+                    <select id="bookingPaymentMethod" class="form-control">
+                      <option value="Cash">Cash at Salon Desk</option>
+                      <option value="UPI">UPI (PhonePe / GPay / Paytm)</option>
+                      <option value="Online">Online Payment Reference</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group mt-3">
+                  <label class="form-label">Select Available Time Slot * <span class="text-xs text-muted">(Crossed-out slots are already booked)</span></label>
+                  <input type="hidden" id="bookingTimeSlot" required />
+                  <div id="bookingSlotGrid" class="slot-grid mt-1"></div>
+                </div>
+
+                <h2 class="card-title mt-4">3. Promo Offer &amp; Special Requirements</h2>
+                <div class="form-grid-2 mt-2">
+                  <div class="form-group">
+                    <label class="form-label" for="bookingOfferCode">Promo Code (Optional)</label>
+                    <div class="search-row">
+                      <input type="text" id="bookingOfferCode" class="form-control" style="flex:1;" placeholder="e.g. BRIDAL15 or GLOW10" />
+                      <button type="button" id="applyOfferBtn" class="btn btn-outline btn-sm">Apply</button>
+                    </div>
+                    <div id="offerFeedback" class="text-xs mt-1"></div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="bookingRequirements">Special Requirements (Optional)</label>
+                    <input type="text" id="bookingRequirements" class="form-control" placeholder="Skin sensitivity, saree style, preferred finish..." />
+                  </div>
+                </div>
+
+                <div class="mt-4">
+                  <button type="submit" class="btn btn-primary">Confirm Booking</button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Live Booking Summary -->
+            <aside class="summary-box" aria-label="Booking Summary">
+              <div class="meta-line"><span class="meta-highlight">Live Summary</span></div>
+              <h3 class="card-title">Appointment Estimate</h3>
+              <div class="summary-line"><span>Service</span><strong id="sumServiceName">-</strong></div>
+              <div class="summary-line"><span>Artist</span><strong id="sumArtistName">-</strong></div>
+              <div class="summary-line"><span>Date &amp; Slot</span><strong id="sumDateTime" class="tabular-nums">-</strong></div>
+              <div class="summary-line"><span>Est. Duration</span><strong id="sumDuration" class="tabular-nums">-</strong></div>
+              <div class="summary-line"><span>Payment Mode</span><strong id="sumPaymentMode">-</strong></div>
+              <div class="summary-line"><span>Service Total</span><span id="sumSubtotal" class="tabular-nums">₹0</span></div>
+              <div class="summary-line"><span>Promo Discount</span><span id="sumDiscount" class="tabular-nums" style="color:var(--status-green);">₹0</span></div>
+              <div class="summary-total">
+                <span>Total Payable</span>
+                <span id="sumTotal" class="tabular-nums">₹0</span>
+              </div>
+              <p class="text-xs text-muted mt-3">
+                Payment stays marked Unpaid until settled at our Jalgaon desk or verified via UPI transaction reference.
+              </p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- My Bookings Guest Lookup Section -->
+      <section class="section-surface" id="myBookingsSection">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <div class="kicker-line">Guest Booking Lookup</div>
+              <h2 class="section-title">View, Reschedule, Cancel or Confirm Payment</h2>
+              <p class="section-desc">Enter your unique Booking ID (e.g. PM-2602) or 10-digit Mobile Number to manage your booking without signing in.</p>
+            </div>
+          </div>
+
+          <div class="card card-linen mb-4">
+            <form id="lookupBookingsForm" class="search-row">
+              <div class="search-input-wrap">
+                <input type="text" id="lookupQueryInput" class="form-control" required placeholder="Enter Booking ID (e.g. PM-2602) or 10-digit Mobile Number (e.g. 9765432109)..." />
+              </div>
+              <button type="submit" class="btn btn-dark">Find My Booking</button>
+            </form>
+            <div id="recentBookingsRow" class="flex-row mt-3"></div>
+          </div>
+
+          <div id="lookupResultsContainer"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Reschedule Modal -->
+    <div id="customerRescheduleModal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3 id="reschedBookingTitle" class="font-display" style="font-size:1.35rem;">Reschedule Appointment</h3>
+          <button type="button" class="btn btn-outline btn-sm" data-close-modal="customerRescheduleModal">Close</button>
+        </div>
+        <div class="modal-body">
+          <div id="reschedAlert" class="hidden"></div>
+          <div class="form-group">
+            <label class="form-label" for="reschedDate">New Date</label>
+            <input type="date" id="reschedDate" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="reschedArtist">Artist</label>
+            <select id="reschedArtist" class="form-control"></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="reschedSlot">Available Slot</label>
+            <select id="reschedSlot" class="form-control"></select>
+          </div>
+          <div class="flex-row mt-2">
+            <button type="button" id="reschedSaveBtn" class="btn btn-primary">Save New Time Slot</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Verification Modal -->
+    <div id="customerPaymentModal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3 class="font-display" style="font-size:1.35rem;">Confirm UPI / Online Payment</h3>
+          <button type="button" class="btn btn-outline btn-sm" data-close-modal="customerPaymentModal">Close</button>
+        </div>
+        <div class="modal-body">
+          <p id="payModalBookingInfo" class="text-sm"></p>
+          <div class="alert alert-info">
+            Studio UPI ID: <strong id="payModalUpiId" class="font-mono">pratikshamakeover@okicici</strong><br>
+            Payments are only marked Paid after entering a valid 6+ character UTR / Transaction Reference ID.
+          </div>
+          <div id="payModalAlert" class="hidden"></div>
+          <div class="form-group">
+            <label class="form-label" for="payModalMethod">Payment Method</label>
+            <select id="payModalMethod" class="form-control">
+              <option value="UPI">UPI (PhonePe / GPay / Paytm)</option>
+              <option value="Online">Online Gateway Reference</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="payModalRef">UTR / Transaction Reference ID *</label>
+            <input type="text" id="payModalRef" class="form-control font-mono" placeholder="e.g. UPI419905129044" />
+          </div>
+          <label class="checkbox-row">
+            <input type="checkbox" id="payModalCheck" />
+            <span>I confirm payment has been completed and debit confirmation was received on my app.</span>
+          </label>
+          <button type="button" id="payModalSubmitBtn" class="btn btn-primary mt-2">Verify &amp; Confirm Payment</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Printable Receipt Modal -->
+    <div id="receiptModal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <div class="modal-header no-print">
+          <h3 class="font-display" style="font-size:1.35rem;">Salon Payment Receipt</h3>
+          <button type="button" class="btn btn-outline btn-sm" data-close-modal="receiptModal">Close</button>
+        </div>
+        <div class="modal-body">
+          <div class="receipt-box">
+            <div class="flex-between mb-2">
+              <strong style="font-family:var(--font-serif);font-size:1.3rem;">Pratiksha Makeover</strong>
+              <span id="rcpNumber" class="font-mono text-xs">RCP-PM-0000</span>
+            </div>
+            <p class="text-xs text-muted mb-3">Pearl Plaza, Ring Road, Navi Peth, Jalgaon, Maharashtra</p>
+            <div class="summary-line"><span>Booking ID</span><strong id="rcpBookingCode" class="font-mono"></strong></div>
+            <div class="summary-line"><span>Customer</span><span id="rcpCustomer"></span></div>
+            <div class="summary-line"><span>Service</span><span id="rcpService"></span></div>
+            <div class="summary-line"><span>Schedule</span><span id="rcpSlot" class="tabular-nums"></span></div>
+            <div class="summary-line"><span>Payment Mode</span><span id="rcpMethod"></span></div>
+            <div class="summary-line"><span>Status</span><span id="rcpStatus"></span></div>
+            <div class="summary-line"><span>Confirmed At</span><span id="rcpConfirmedAt" class="text-xs"></span></div>
+            <div class="summary-total"><span>Paid Amount</span><span id="rcpAmount" class="tabular-nums"></span></div>
+          </div>
+          <div class="flex-row no-print">
+            <button type="button" onclick="window.print()" class="btn btn-dark btn-sm">Print / Save PDF</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div><strong>Pratiksha Makeover</strong> &middot; Your Beauty, Our Passion &middot; Jalgaon, Maharashtra</div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="admin.html">Admin Login</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/firebase.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/booking.js"></script>
+  </body>
+</html>

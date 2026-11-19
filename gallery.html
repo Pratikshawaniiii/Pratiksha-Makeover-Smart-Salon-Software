@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Makeup &amp; Hairstyle Gallery – Pratiksha Makeover Jalgaon</title>
+    <meta name="description" content="View bridal makeup, party glam, organic mehndi art, and Paithani saree draping looks from Pratiksha Makeover studio in Jalgaon." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=JetBrains+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+  </head>
+  <body data-page="gallery">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="index.html" class="brand-link" aria-label="Pratiksha Makeover Home">
+          <svg class="brand-logo" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="1" y="1" width="38" height="38" rx="19" fill="#FBF2F4" stroke="#C49A45" stroke-width="1.5"/>
+            <path d="M20 8C23.5 13 28 16.5 28 21.5C28 25.9 24.4 29.5 20 29.5C15.6 29.5 12 25.9 12 21.5C12 16.5 16.5 13 20 8Z" stroke="#9E465C" stroke-width="1.5"/>
+            <path d="M15.5 22.5C16.8 20.3 18.4 19 20 19C21.6 19 23.2 20.3 24.5 22.5" stroke="#C49A45" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="20" cy="15.2" r="1.4" fill="#9E465C"/>
+          </svg>
+          <span class="brand-title">Pratiksha Makeover</span>
+        </a>
+
+        <nav class="main-nav" id="mainNav" aria-label="Primary Navigation">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="services.html" class="nav-link">Services</a>
+          <a href="gallery.html" class="nav-link active">Gallery</a>
+          <a href="booking.html" class="nav-link">Book Appointment</a>
+          <a href="admin.html" class="nav-link">Admin</a>
+        </nav>
+
+        <div class="header-actions">
+          <button type="button" class="btn btn-outline btn-sm" data-open-concierge>Smart Concierge</button>
+          <a href="booking.html" class="btn btn-primary btn-sm">Book Now</a>
+          <button type="button" class="mobile-menu-btn" id="mobileMenuBtn" aria-expanded="false" aria-controls="mainNav" aria-label="Toggle Menu">&#9776;</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section-canvas">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <div class="kicker-line">Studio Lookbook</div>
+              <h1 class="section-title">Makeup, Hairstyling &amp; Bridal Draping Gallery</h1>
+              <p class="section-desc">Click any look card to inspect studio details and book the matching service directly.</p>
+            </div>
+            <a href="booking.html" class="btn btn-primary">Book a Bridal Trial</a>
+          </div>
+
+          <div class="filter-bar" id="galleryFilterBar" aria-label="Filter Gallery"></div>
+          <div class="grid-3" id="galleryGrid"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Lightbox Modal -->
+    <div id="galleryLightbox" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div>
+            <h3 id="lightboxTitle" class="font-display" style="font-size:1.45rem;">Look Preview</h3>
+            <p id="lightboxMeta" class="text-xs text-muted"></p>
+          </div>
+          <button type="button" id="closeLightboxBtn" class="btn btn-outline btn-sm">Close</button>
+        </div>
+        <div class="modal-body">
+          <img id="lightboxImg" src="" alt="" class="lightbox-img" referrerpolicy="no-referrer" />
+          <p id="lightboxCaption" class="card-body"></p>
+          <div class="flex-between">
+            <span class="text-xs text-muted">Available at Pearl Plaza, Jalgaon</span>
+            <a id="lightboxBookBtn" href="booking.html" class="btn btn-primary btn-sm">Book This Look</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div><strong>Pratiksha Makeover</strong> &middot; Your Beauty, Our Passion &middot; Jalgaon, Maharashtra</div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="booking.html">Book Appointment</a>
+          <a href="admin.html">Admin Login</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/firebase.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
